@@ -1,9 +1,5 @@
 import random
-import os
-
-def limpiar_terminal():
-    """Limpia la terminal."""
-    os.system('cls' if os.name == 'nt' else 'clear')
+from components.cli import *
     
 def mostrarTablero(tablero):
     """Muestra el tablero de juego."""
@@ -18,45 +14,6 @@ def comprobarTablero(filas, columnas):
     else :
         print("El tablero se creo")
         return True
-    
-def marca():
-    print("¿Qué marca escoges? 'X' o 'O'")
-    while True:
-        usuario = input().strip().upper()  # Elimina espacios y convierte a mayúsculass
-        if usuario == 'X':
-            limpiar_terminal()
-            maquina = 'O'
-            print(f"La maquina sera: {maquina}\nEl usuario sera: {usuario}")
-            return usuario, maquina  # Retorna ambas marcas
-        elif usuario == 'O':
-            limpiar_terminal()
-            maquina = 'X'
-            print(f"La maquina sera: {maquina}\nEl usuario sera: {usuario}")
-            return usuario, maquina
-        else:
-            limpiar_terminal()
-            print("Ingresa una letra válida: X o O")
-            
-def seleccion():
-    """Inicia el juego del gato."""
-    print("\tESTE ES EL JUEGO DEL GATO. ¿QUIERES TIRAR PRIMERO O LA MÁQUINA?")
-    tirador = 0
-    while tirador == 0:
-        try:
-            tirador = int(input("1) Usuario tira primero\n2) Máquina tira primero\n"))
-            if tirador == 1:
-                limpiar_terminal()
-                return 1 # Devuelve la elección del jugador
-            elif tirador == 2:
-                limpiar_terminal()
-                return 2 # Devuelve la elección de la máquina
-            else:
-                limpiar_terminal()
-                print("Ingrese un valor válido (1 o 2).")
-                tirador = 0  # Reinicia tirador para repetir el bucle
-        except ValueError:
-            limpiar_terminal()
-            print("Entrada inválida. Ingrese un número entero.")
             
 def tiraJugador(tablero, marcaU):
     while True:
@@ -67,18 +24,18 @@ def tiraJugador(tablero, marcaU):
             if 1 <= renglon <= len(tablero) and 1 <= columna <= len(tablero[0]):
                 if tablero[renglon-1][columna-1] == ' ':
                     tablero[renglon-1][columna-1] = marcaU
-                    limpiar_terminal()
+                    clean_screen()
                     print(f"Tiro el jugador [{renglon}][{columna}]")
                     return tablero #se regresa el tablero modificado
                 else:
-                    limpiar_terminal()
+                    clean_screen()
                     print("Casilla ocupada. Intente de nuevo.")
                     mostrarTablero(tablero)
             else:
-                limpiar_terminal()
+                clean_screen()
                 print("Valor fuera de rango. Intente de nuevo.")
         except ValueError:
-            limpiar_terminal()
+            clean_screen()
             print("Ingresa numeros enteros. Intentalo de nuevo")
 
 def tiraMaquina(tablero,marcaM):
@@ -164,19 +121,19 @@ def iniciarGato(tirador, marcaU, marcaM):
             ganador = verificaGanador(gato, marcaU, marcaM, contadorTiros)  # Se envía contadorTiros por si ya no hay espacio en el tablero
 
             if ganador == 1:
-                limpiar_terminal()
+                clean_screen()
                 print("¡El usuario ganó! 🎉")
                 mostrarTablero(gato)
                 print(f"Se realizaron {contadorTiros} tiros totales")
                 break
             elif ganador == 2:
-                limpiar_terminal()
+                clean_screen()
                 print("¡La máquina ganó! 🤖")
                 mostrarTablero(gato)
                 print(f"Se realizaron {contadorTiros} tiros totales")
                 break
             elif ganador == 3:  # Si verificaGanador detecta empate
-                limpiar_terminal()
+                clean_screen()
                 print("¡Empate! No hubo ningún ganador. 😐")
                 mostrarTablero(gato)
                 print(f"Se realizaron {contadorTiros} tiros totales")
@@ -190,8 +147,8 @@ def iniciarGato(tirador, marcaU, marcaM):
 
 # ------------------BLOQUE QUE INICIARÁ EL GATO-------------------
 if __name__ == "__main__":
-    eleccion = seleccion()
-    marcaUsuario, marcaMaquina = marca()
+    eleccion = selection()
+    marcaUsuario, marcaMaquina = symbol()
     if eleccion == 1:
       iniciarGato(eleccion,marcaUsuario,marcaMaquina)
     elif eleccion == 2:
