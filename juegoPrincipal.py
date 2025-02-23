@@ -3,7 +3,7 @@ from components.board_logic import *
 from components.user import *
 from components.IA_machine import *
 
-def TikTakToe_random(shoter, symbolU, symbolM):
+def TikTakToe(shoter, symbolU, symbolM, functionMachine, *argsFunctionMachine):
     """Inicia el juego del gato."""
     row = 4      #renglon
     col = 3      #columa
@@ -20,7 +20,7 @@ def TikTakToe_random(shoter, symbolU, symbolM):
             if shoter == 1:
                 board = throw_the_user(board, symbolU)
             else:
-                board = throw_the_machine(board, symbolM)
+                board = functionMachine(board,*argsFunctionMachine)
 
             counter += 1
             show_board(board)
@@ -54,11 +54,9 @@ def TikTakToe_random(shoter, symbolU, symbolM):
 
 # ------------------BLOQUE QUE INICIARÁ EL GATO-------------------
 if __name__ == "__main__":
-    eleccion = selection()
-    marcaUsuario, marcaMaquina = symbol()
-    if eleccion == 1:
-      TikTakToe_random(eleccion,marcaUsuario,marcaMaquina)
-    elif eleccion == 2:
-      TikTakToe_random(eleccion,marcaUsuario,marcaMaquina)
-    else:
-      print("Error al iniciar el juego")
+   try:
+       eleccion = selection()
+       marcaUsuario, marcaMaquina = symbol()
+       TikTakToe(eleccion,marcaUsuario,marcaMaquina, throw_random_machine, marcaMaquina)
+   except:
+       print("Error al iniciar el juego")
