@@ -1,6 +1,6 @@
 import random
 
-def throw_the_machine(board,symbolM):
+def throw_random_machine(board,symbolM):
         while True:
             #la maquina escoge una posicion aleatorio
             renglon = random.randint(1,len(board))
@@ -11,3 +11,6 @@ def throw_the_machine(board,symbolM):
                 print(f"La maquina tiro [{renglon}][{columna}]")
                 return board
             #si la posicion esta ocupada el bucle while se repite
+#def throw_the_machine_defensive(board, symbolM): #Método para intentar no perder contra el usuario.
+#   while True:
+
