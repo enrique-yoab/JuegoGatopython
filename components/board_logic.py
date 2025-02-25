@@ -33,22 +33,22 @@ def check_winner(board, symbolU, symbolM, cont):
     N = len(board)     #tamano del renglon
     M = len(board[0])  #tamano de la columna
     
-    #verificamos los renglones, para identificar si hay 3 iguales
+    #verificamos los renglones, para identificar si hay N iguales
     for row in range(N):
-        #este es el arreglo dinamico 3 x 1, si hay mas de 3 renglones se adelantara una posicion
+        #este es el arreglo dinamico N x 1, si hay mas de N renglones se adelantara una posicion
         for col in range(M-2):
-            if all(board[row][col+i] == symbolU for i in range(3)):
+            if all(board[row][col+i] == symbolU for i in range(N)):
                 return 1
-            if all(board[row][col+i] == symbolM for i in range(3)):
+            if all(board[row][col+i] == symbolM for i in range(N)):
                 return 2
             
-    #verificamos las columnas, para identificar si hay 3 iguales
+    #verificamos las columnas, para identificar si hay M iguales
     for col in range(M):
-        #este es el arreglo dinamico 1 x 3, si hay mas de 3 columnas se adelantara una posicion
+        #este es el arreglo dinamico 1 x M, si hay mas de M columnas se adelantara una posicion
         for row in range(N-2):
-            if all(board[row+i][col] == symbolU for i in range(3)):
+            if all(board[row+i][col] == symbolU for i in range(M)):
                 return 1
-            if all(board[row+i][col] == symbolM for i in range(3)):
+            if all(board[row+i][col] == symbolM for i in range(M)):
                 return 2
             
     #Verificamos las diagonales, de arriba hacia abajo
