@@ -59,7 +59,7 @@ def confront():
                 return Block_Position
             elif option == 3:
                 clean_screen()
-                return None
+                return IA_Position
             else:
                 clean_screen()
                 print("Por favor escoga una opción valida.")

@@ -67,8 +67,16 @@ def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
             return board
         #si no encuentra una posicion se repite el ciclo
 
-#funciones para el metodo de IA invencible
-def evualation_cell(celda, symbolU, symbolM):
+######################## funciones para el metodo de IA invencible
+def IA_Position(board, symbolM, symbolU):  #Metodo que evaluara las posibles jugadas
+    total_cost =0 
+    total_cost, plays_line = evaluation_line(board, symbolU, symbolM, total_cost)
+    print("El costo de las jugadas de las columnas es: ",total_cost)
+    print("Posiciones evaluadas y sus puntajes: ")
+    for linea in plays_line:
+        print(f"Posiciones columna {linea[0]} : Puntaje {linea[1]}")
+
+def evaluation_cell(celda, symbolU, symbolM):
     if celda == symbolM:
         return 10  #el peso para el simbolo de la Maquina
     if celda == symbolU:
@@ -76,56 +84,53 @@ def evualation_cell(celda, symbolU, symbolM):
     else:
         return 5   #peso para la celda vacia
 
-def evualation_line(board, symbolU, symbolM, total_cost):
+def evaluation_line(board, symbolU, symbolM, total_cost):
     plays_line = []
     for row in range(len(board)):
         for col in range(len(board[0])-2):
             valores = [board[row][col] , board[row][col + 1] , board[row][col + 2]]
             costo=0
             for celda in valores:
-                costo+=evualation_cell(celda, symbolU, symbolM)
+                costo+=evaluation_cell(celda, symbolU, symbolM)
             #guardamos las posiciones de la jugada 1x3 y su costo
             plays_line.append((( (row,col), (row,col+1), (row,col+2)), costo))
             total_cost+=costo
     return total_cost, plays_line
 
-def evualation_column(board, symbolU, symbolM):
-    total_cost=0
+def evaluation_column(board, symbolU, symbolM, total_cost):
     plays_column = []
     for col in range(len(board[0])):
         for row in range(len(board)-2):
             valores = [board[row][col] , board[row + 1][col] , board[row + 2][col]]
             costo=0
             for celda in valores:
-                costo+=evualation_cell(celda, symbolU, symbolM)
+                costo+=evaluation_cell(celda, symbolU, symbolM)
             #guardamos las posiciones de la jugada 1x3 y su costo
             plays_column.append((( (row,col), (row+1,col), (row+2,col)), costo))
             total_cost+=costo
     return total_cost, plays_column
     
-def top_down_evaluation_diagonal(board, symbolU, symbolM):
-    total_cost=0
+def top_down_evaluation_diagonal(board, symbolU, symbolM, total_cost):
     plays_diagonal = []
     for row in range(len(board)-2):
         for col in range(len(board[0])-2):
             valores = [board[row][col] , board[row + 1][col + 1 ] , board[row + 2][col + 2]]
             costo=0
             for celda in valores:
-                costo+=evualation_cell(celda, symbolU, symbolM)
+                costo+=evaluation_cell(celda, symbolU, symbolM)
             #guardamos las posiciones de la jugada 1x3 y su costo
             plays_diagonal.append((( (row,col), (row+1,col+1), (row+2,col+2)), costo))
             total_cost+=costo  
     return total_cost, plays_diagonal
 
-def buttom_top_evaluation_diagonal(board, symbolU, symbolM):
-    total_cost=0
+def buttom_top_evaluation_diagonal(board, symbolU, symbolM, total_cost):
     plays_diagonal = []
     for row in range(2,len(board)):
         for col in range(len(board[0])-2):
             valores = [board[row][col] , board[row - 1][col + 1 ] , board[row - 2][col + 2]]
             costo=0
             for celda in valores:
-                costo+=evualation_cell(celda, symbolU, symbolM)
+                costo+=evaluation_cell(celda, symbolU, symbolM)
             #guardamos las posiciones de la jugada 1x3 y su costo
             plays_diagonal.append((( (row,col), (row-1,col+1), (row-2,col+2)), costo))
             total_cost+=costo  
