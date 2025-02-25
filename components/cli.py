@@ -50,16 +50,16 @@ def confront():
     option = 0
     while option == 0:
         try:
-            option = int(input("1)IA Random\n2)IA Defensiva\n3)IA Bloqueadora\n"))
+            option = int(input("1)IA Random\n2)IA Defensiva\n3)IA Ganadora\n"))
             if option == 1:
                 clean_screen()
                 return throw_random_machine
             elif option == 2:
                 clean_screen()
-                return None
+                return Block_Position
             elif option == 3:
                 clean_screen()
-                return Block_Position
+                return None
             else:
                 clean_screen()
                 print("Por favor escoga una opción valida.")
