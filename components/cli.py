@@ -46,10 +46,10 @@ def selection():
             print("Entrada inválida. Ingrese un número entero.")
 
 def confront():
-    print("¿Con que IA te quieres enfrentar?")
     option = 0
     while option == 0:
         try:
+            print("¿Con que IA te quieres enfrentar?")
             option = int(input("1)IA Random\n2)IA Defensiva\n3)IA Ganadora\n"))
             if option == 1:
                 clean_screen()

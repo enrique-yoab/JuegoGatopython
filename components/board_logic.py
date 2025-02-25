@@ -4,10 +4,22 @@ def create_board(r,c):
     return board
 
 def show_board(board):
-    """Muestra el tablero de juego."""
-    for row in board:
-        print(" | ".join(row)) # imprime la lista de fila, uniendo sus elementos con "|"
-        print("-" * (len(row)*4-1)) # crea una linea de "-" para separar las filas.
+    """Muestra el tablero de juego con coordenadas."""
+    for row in range(len(board)):
+        print(" | ".join(board[row]))  # Une los elementos con "|"
+        print("-" * (len(board[row]) * 4 - 1))  # Línea divisoria
+    
+    print("\nCoordenadas del tablero:")
+    for row in range(len(board)):
+        for col in range(len(board[0])):
+            if board[row][col] == 'X':
+                print(f"X | ", end="")
+            if board[row][col] == 'O':
+                print(f"O | ", end="")
+            if board[row][col] == ' ':
+                print(f"[{row+1}][{col+1}] | ", end="")
+        print("\n" + "-" * (len(board[0]) * 9 - 1))  # Línea divisoria ajustada
+    
 
 def check_board(row, col):
     if row < 3 or col < 3:
