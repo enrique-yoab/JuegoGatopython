@@ -55,11 +55,13 @@ def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
                 return board
 
     # Si no hay una jugada por bloquear, buscar una casilla vacía
-    posiciones_libres = [(r, c) for r in range(N) for c in range(M) if board[r][c] == ' ']
-    if posiciones_libres:
-        renglon, columna = random.choice(posiciones_libres)
-        board[renglon][columna] = symbolM
-        print(f"La maquina tiro aleatoriamente en [{renglon+1}][{columna+1}]")
-        return board
-
-    return board  # Si el tablero está lleno, se devuelve sin cambios
+    while True:
+        #la maquina escoge una posicion aleatorio
+        renglon = random.randint(0,len(board)-1)
+        columna = random.randint(0,len(board[0])-1)
+        #compara la posicion que ingreso si esta vacia
+        if board[renglon][columna] == ' ':
+            board[renglon][columna] = symbolM
+            print(f"La maquina tiro [{renglon+1}][{columna+1}]")
+            return board
+        #si no encuentra una posicion se repite el ciclo
