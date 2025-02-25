@@ -69,13 +69,26 @@ def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
 
 ######################## funciones para el metodo de IA invencible
 def IA_Position(board, symbolM, symbolU):  #Metodo que evaluara las posibles jugadas
-    total_cost =0 
+    total_cost = 0 
     total_cost, plays_line = evaluation_line(board, symbolU, symbolM, total_cost)
-    print("El costo de las jugadas de las columnas es: ",total_cost)
-    print("Posiciones evaluadas y sus puntajes: ")
+    total_cost, plays_column = evaluation_column(board, symbolU, symbolM, total_cost)
+    total_cost, plays_diagonal1 = top_down_evaluation_diagonal(board, symbolU, symbolM, total_cost)
+    total_cost, plays_diagonal2 = buttom_top_evaluation_diagonal(board, symbolU, symbolM, total_cost)
+    print("El costo total del tablero es: ",total_cost)
+    print("Posiciones evaluadas y sus puntajes: \n")
     for linea in plays_line:
-        print(f"Posiciones columna {linea[0]} : Puntaje {linea[1]}")
-
+        print(f"Posiciones renglon   {linea[0]} : Puntaje {linea[1]}")
+    print()
+    for linea in plays_column:
+        print(f"Posiciones columna   {linea[0]} : Puntaje {linea[1]}")
+    print()
+    for linea in plays_diagonal1:
+        print(f"Posiciones diagonal1 {linea[0]} : Puntaje {linea[1]}")
+    print()
+    for linea in plays_diagonal2:
+        print(f"Posiciones diagonal2 {linea[0]} : Puntaje {linea[1]}")
+    
+        
 def evaluation_cell(celda, symbolU, symbolM):
     if celda == symbolM:
         return 10  #el peso para el simbolo de la Maquina
