@@ -11,6 +11,55 @@ def throw_random_machine(board,symbolM):
                 print(f"La maquina tiro [{renglon}][{columna}]")
                 return board
             #si la posicion esta ocupada el bucle while se repite
-#def throw_the_machine_defensive(board, symbolM): #Método para intentar no perder contra el usuario.
-#   while True:
+            
+def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
+    N = len(board)
+    M = len(board[0])
 
+    # Verificar filas (horizontal)
+    for row in range(N):
+        for col in range(M - 2):
+            valores = [board[row][col], board[row][col + 1], board[row][col + 2]]
+            if valores.count(symbolU) == 2 and valores.count(' ') == 1:
+                board[row][col + valores.index(' ')] = symbolM
+                print(f"La maquina bloqueo en [{row+1}][{col+1+valores.index(' ')}]")
+                return board
+
+    # Verificar columnas (vertical)
+    for col in range(M):
+        for row in range(N - 2):
+            valores = [board[row][col], board[row + 1][col], board[row + 2][col]]
+            if valores.count(symbolU) == 2 and valores.count(' ') == 1:
+                board[row + valores.index(' ')][col] = symbolM
+                print(f"La maquina bloqueo en [{row+1+valores.index(' ')}][{col+1}]")
+                return board
+
+    # Verificar diagonales principales (\)
+    for row in range(N - 2):
+        for col in range(M - 2):
+            valores = [board[row][col], board[row + 1][col + 1], board[row + 2][col + 2]]
+            if valores.count(symbolU) == 2 and valores.count(' ') == 1:
+                idx = valores.index(' ')
+                board[row + idx][col + idx] = symbolM
+                print(f"La maquina bloqueo en [{row+1+idx}][{col+1+idx}]")
+                return board
+
+    # Verificar diagonales secundarias (/)
+    for row in range(2, N):
+        for col in range(M - 2):
+            valores = [board[row][col], board[row - 1][col + 1], board[row - 2][col + 2]]
+            if valores.count(symbolU) == 2 and valores.count(' ') == 1:
+                idx = valores.index(' ')
+                board[row - idx][col + idx] = symbolM
+                print(f"La maquina bloqueo en [{row+1-idx}][{col+1+idx}]")
+                return board
+
+    # Si no hay una jugada por bloquear, buscar una casilla vacía
+    posiciones_libres = [(r, c) for r in range(N) for c in range(M) if board[r][c] == ' ']
+    if posiciones_libres:
+        renglon, columna = random.choice(posiciones_libres)
+        board[renglon][columna] = symbolM
+        print(f"La maquina tiro aleatoriamente en [{renglon+1}][{columna+1}]")
+        return board
+
+    return board  # Si el tablero está lleno, se devuelve sin cambios

@@ -23,7 +23,7 @@ def check_winner(board, symbolU, symbolM, cont):
     
     #verificamos los renglones, para identificar si hay 3 iguales
     for row in range(N):
-        #este es el arreglo dinamico 3 x 3, si hay mas de 3 columnas se adelantara una a la derecha
+        #este es el arreglo dinamico 3 x 1, si hay mas de 3 renglones se adelantara una posicion
         for col in range(M-2):
             if all(board[row][col+i] == symbolU for i in range(3)):
                 return 1
@@ -32,7 +32,7 @@ def check_winner(board, symbolU, symbolM, cont):
             
     #verificamos las columnas, para identificar si hay 3 iguales
     for col in range(M):
-        #este es el arreglo dinamico 3 x 3, si hay mas de 3 renglones se adelantara una a la derecha
+        #este es el arreglo dinamico 1 x 3, si hay mas de 3 columnas se adelantara una posicion
         for row in range(N-2):
             if all(board[row+i][col] == symbolU for i in range(3)):
                 return 1
@@ -58,5 +58,5 @@ def check_winner(board, symbolU, symbolM, cont):
     #si el contador de tiros es igual a M x N entonces es un empate
     if cont == N*M:
         return 3
-    #se retorna sero si aun no encuentra un ganador
+    #se retorna cero si aun no encuentra un ganador
     return 0

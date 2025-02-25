@@ -20,7 +20,7 @@ def TikTakToe(shoter, symbolU, symbolM, functionMachine, *argsFunctionMachine):
             if shoter == 1:
                 board = throw_the_user(board, symbolU)
             else:
-                board = functionMachine(board,*argsFunctionMachine)
+                board = functionMachine(board,*argsFunctionMachine, symbolU)
 
             counter += 1
             show_board(board)
@@ -57,6 +57,6 @@ if __name__ == "__main__":
    try:
        eleccion = selection()
        marcaUsuario, marcaMaquina = symbol()
-       TikTakToe(eleccion,marcaUsuario,marcaMaquina, throw_random_machine, marcaMaquina)
+       TikTakToe(eleccion,marcaUsuario,marcaMaquina, Block_Position, marcaMaquina)
    except:
        print("Error al iniciar el juego")
