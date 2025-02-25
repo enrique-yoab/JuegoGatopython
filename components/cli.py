@@ -1,4 +1,6 @@
 import os
+from components.IA_machine import *
+#Necesario para retornar las funciones de comportamiento de IA
 
 def clean_screen():
     """Limpia la terminal."""
@@ -42,3 +44,27 @@ def selection():
         except ValueError:
             clean_screen()
             print("Entrada inválida. Ingrese un número entero.")
+
+def confront():
+    print("¿Con que IA te quieres enfrentar?")
+    option = 0
+    while option == 0:
+        try:
+            option = int(input("1)IA Random\n2)IA Defensiva\n3)IA Bloqueadora\n"))
+            if option == 1:
+                clean_screen()
+                return throw_random_machine
+            elif option == 2:
+                clean_screen()
+                return None
+            elif option == 3:
+                clean_screen()
+                return Block_Position
+            else:
+                clean_screen()
+                print("Por favor escoga una opción valida.")
+                option=0
+        except ValueError:
+            option=0
+            clean_screen()
+            print("Entrada inválida. Ingrese un número entero")

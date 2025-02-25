@@ -1,6 +1,7 @@
 import random
 
-def throw_random_machine(board,symbolM):
+def throw_random_machine(board,symbolM,symbolU):
+    #Se añade symbolU por temas de compatibilidad
         while True:
             #la maquina escoge una posicion aleatorio
             renglon = random.randint(1,len(board))

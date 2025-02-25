@@ -6,7 +6,7 @@ from components.IA_machine import *
 def TikTakToe(shoter, symbolU, symbolM, functionMachine):
     """Inicia el juego del gato."""
     row = 4      #renglon
-    col = 3      #columa
+    col = 4      #columa
     winner = 0   #ganador (usuario, maquina o empate)
     counter = 0  #contador de los tiros realizados durante el juego
     
@@ -57,6 +57,7 @@ if __name__ == "__main__":
    try:
        eleccion = selection()
        marcaUsuario, marcaMaquina = symbol()
-       TikTakToe(eleccion,marcaUsuario,marcaMaquina, Block_Position)
+       IAchoose = confront()
+       TikTakToe(eleccion,marcaUsuario,marcaMaquina, IAchoose)
    except:
        print("Error al iniciar el juego")
