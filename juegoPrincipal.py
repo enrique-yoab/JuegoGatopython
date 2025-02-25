@@ -3,7 +3,7 @@ from components.board_logic import *
 from components.user import *
 from components.IA_machine import *
 
-def TikTakToe(shoter, symbolU, symbolM, functionMachine, *argsFunctionMachine):
+def TikTakToe(shoter, symbolU, symbolM, functionMachine):
     """Inicia el juego del gato."""
     row = 4      #renglon
     col = 3      #columa
@@ -20,7 +20,7 @@ def TikTakToe(shoter, symbolU, symbolM, functionMachine, *argsFunctionMachine):
             if shoter == 1:
                 board = throw_the_user(board, symbolU)
             else:
-                board = functionMachine(board,*argsFunctionMachine, symbolU)
+                board = functionMachine(board,symbolM, symbolU)
 
             counter += 1
             show_board(board)
@@ -57,6 +57,6 @@ if __name__ == "__main__":
    try:
        eleccion = selection()
        marcaUsuario, marcaMaquina = symbol()
-       TikTakToe(eleccion,marcaUsuario,marcaMaquina, Block_Position, marcaMaquina)
+       TikTakToe(eleccion,marcaUsuario,marcaMaquina, Block_Position)
    except:
        print("Error al iniciar el juego")

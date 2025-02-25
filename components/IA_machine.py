@@ -57,11 +57,11 @@ def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
     # Si no hay una jugada por bloquear, buscar una casilla vacía
     while True:
         #la maquina escoge una posicion aleatorio
-        renglon = random.randint(0,len(board)-1)
-        columna = random.randint(0,len(board[0])-1)
+        renglon = random.randint(1,len(board))
+        columna = random.randint(1,len(board[0]))
         #compara la posicion que ingreso si esta vacia
-        if board[renglon][columna] == ' ':
-            board[renglon][columna] = symbolM
-            print(f"La maquina tiro [{renglon+1}][{columna+1}]")
+        if board[renglon-1][columna-1] == ' ':
+            board[renglon-1][columna-1] = symbolM
+            print(f"La maquina tiro [{renglon}][{columna}]")
             return board
         #si no encuentra una posicion se repite el ciclo
