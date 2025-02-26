@@ -61,10 +61,10 @@ def TikTakToe(shoter, symbolU, symbolM, IA):
 
 # ------------------BLOQUE QUE INICIARÁ EL GATO-------------------
 if __name__ == "__main__":
-
+    try:
         eleccion = selection()
         marcaUsuario, marcaMaquina = symbol()
         IAchoose = confront()
         TikTakToe(eleccion, marcaUsuario, marcaMaquina, IAchoose)
-
-       # print("Error al iniciar el juego")
+    except:
+        print("Error al iniciar el juego")
