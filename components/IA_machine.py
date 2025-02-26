@@ -64,18 +64,20 @@ def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
             print(f"La maquina tiro [{renglon}][{columna}]")
             return board
         #si no encuentra una posicion se repite el ciclo
-def score(board, symbolU, symbolM,depth): ##calcula puntaje de la jugada
-    if check_winner(board, symbolU, symbolM,depth) == 1:
+        
+def score(board, symbolU, symbolM, depth): ##calcula puntaje de la jugada
+    if check_winner(board, symbolU, symbolM, depth) == 2:
         return 10 - depth
-    elif check_winner(board, symbolM, symbolU,depth) == 1:
+    elif check_winner(board, symbolM, symbolU, depth) == 1:
         return depth - 10
     else:
         return 0
+    
 def minimax(board, depth, symbolU, symbolM, turnPlayer):
     lenBoard = len(board[0])
     boardArray = [elemento for fila in board for elemento in fila]
     if check_winner(board,symbolU, symbolM, depth):
-        return score(board, symbolU, symbolM, depth), -1
+        return score(board, symbolU, symbolM, depth), None
     scores = []
     moves = []
     avaliblesMoves = [indice for indice,elemento in enumerate(boardArray) if elemento == ' ']
@@ -93,8 +95,40 @@ def minimax(board, depth, symbolU, symbolM, turnPlayer):
     else:
         minScoreIx = scores.index(min(scores))
         return scores[minScoreIx], moves[minScoreIx]
+    
 def throw_minimax_machine(board, depth, symbolU, symbolM, turnPlayer):
-    move = minimax(board,depth, symbolU, symbolM, turnPlayer)
+    #los sub arreglos se manejan como un arreglo de 2 x 2
+    #para poder identificar las jugadas de 3
+    sub_1 = div_board(board, 0, 0)
+    sub_2 = div_board(board, 0, 1)
+    sub_3 = div_board(board, 1, 0)
+    sub_4 = div_board(board, 1, 1)
+
+    moves = []
+    scores = []
+
+    for sub, (start_row, start_col) in zip([sub_1, sub_2, sub_3, sub_4], [(0, 0), (0, 1), (1, 0), (1, 1)]):
+        score, move = minimax(sub, depth, symbolU, symbolM, turnPlayer)
+        if move is not None:
+            global_move = (start_row * 3 + move // 3, start_col * 3 + move % 3)
+            scores.append(score)
+            moves.append(global_move)
+
+    # Escoger la mejor jugada según el turno
+    if turnPlayer:
+        best_move = moves[scores.index(max(scores))]
+    else:
+        best_move = moves[scores.index(min(scores))]
+
+    # Aplicar la mejor jugada al tablero original
     boardP = [fila[:] for fila in board]
-    boardP[move[1]//3][move[1]%3] = symbolM
+    boardP[best_move[0]][best_move[1]] = symbolM
+
+    print(f"La máquina tiró en: {best_move[0]+1},{best_move[1]+1}")
     return boardP
+
+def div_board(board, start_col, start_row):
+    return [fila[start_col:start_col+3] for fila in board[start_row:start_row+3]]
+
+        
+    
