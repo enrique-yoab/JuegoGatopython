@@ -65,6 +65,7 @@ if __name__ == "__main__":
         eleccion = selection()
         marcaUsuario, marcaMaquina = symbol()
         IAchoose = confront()
+        clean_screen()
         TikTakToe(eleccion, marcaUsuario, marcaMaquina, IAchoose)
     except:
         print("Error al iniciar el juego")

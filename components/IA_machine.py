@@ -66,9 +66,11 @@ def Block_Position(board, symbolM, symbolU):  # Método para bloquear al usuario
         #si no encuentra una posicion se repite el ciclo
         
 def score(board, symbolU, symbolM, depth): ##calcula puntaje de la jugada
-    if check_winner(board, symbolU, symbolM, depth) == 2:
+    #si el usario obtiene una victoria aumenta su puntaje
+    if check_winner(board, symbolU, symbolM, depth) == 1:
         return 10 - depth
-    elif check_winner(board, symbolM, symbolU, depth) == 1:
+    #si la maquina obtine una victoria aumenta su puntaje
+    elif check_winner(board, symbolM, symbolU, depth) == 2:
         return depth - 10
     else:
         return 0
@@ -90,15 +92,16 @@ def minimax(board, depth, symbolU, symbolM, turnPlayer):
         scores.append(minimax(possibleBoard, depth + 1, symbolU, symbolM, not turnPlayer)[0])
         moves.append(move)
     if turnPlayer:
-        maxScoreIx = scores.index(max(scores))
-        return scores[maxScoreIx], moves[maxScoreIx]
-    else:
         minScoreIx = scores.index(min(scores))
         return scores[minScoreIx], moves[minScoreIx]
+    else:
+        maxScoreIx = scores.index(max(scores))
+        return scores[maxScoreIx], moves[maxScoreIx]
     
 def throw_minimax_machine(board, depth, symbolU, symbolM, turnPlayer):
-    #los sub arreglos se manejan como un arreglo de 2 x 2
-    #para poder identificar las jugadas de 3
+    #los sub arreglos se manejan como un arreglo de 2 x 2 para una tabla 4 x 4
+    #para una tabla 4 x 5 el arreglo es 2 x 3, por lo que deben ser 6 subtablas
+    #para poder identificar las jugadas de 3 lineas
     sub_1 = div_board(board, 0, 0)
     sub_2 = div_board(board, 0, 1)
     sub_3 = div_board(board, 1, 0)
