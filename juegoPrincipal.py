@@ -23,9 +23,9 @@ def TikTakToe(shoter, symbolU, symbolM, IA):
             else:
                 if IA == 1:
                     board = throw_random_machine(board, symbolM)
-                elif IA == 2:
+                elif IA == 2 or (IA == 3 and counter < 4) :
                     board = Block_Position(board, symbolM, symbolU)
-                else:
+                elif IA == 3 and counter >= 4:
                     board = throw_minimax_machine(board, counter,symbolU, symbolM, False)
             counter += 1
             show_board(board)
